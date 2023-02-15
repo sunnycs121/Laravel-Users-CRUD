@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Athletic - Display Users</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/671161211a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header text-center font-weight-bold">
+                The Athletic Subscribers
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <!-- Hassan Farooq -->
+                    @if (!$response['error'])
+                        <table>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Date Created</th>
+                                <th>Actions</th>
+                            </tr>
+                            @foreach ($response['data'] as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ date('m/d/Y h:i A', strtotime($user->dateCreated)) }}</td>
+                                    <td>
+                                        <a href="/users/{{ $user->id }}">
+                                            <i class="fa-regular fa-eye"></i>
+                                        <a>
+                                        <button data-toggle="modal" data-target="#demoModal" type="button"><i class="fa-regular fa-pen-to-square"></i></button>
+                                        <!-- <i class="fa-regular fa-pen-to-square"></i> -->
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <!-- Modal Example Start-->
+			<div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria- 
+            labelledby="demoModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="demoModalLabel">Modal Example - 
+                             Websolutionstuff</h5>
+								<button type="button" class="close" data-dismiss="modal" aria- 
+                                label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<div class="modal-body">
+								Welcome, Websolutionstuff !!
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data- 
+                            dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save 
+                                changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	 <!-- Modal Example End-->
+                        </table>
+                    @else
+                        Error: {{ $response['message'] }}
+                    @endif
+                </div>
+                <!-- <form name="total-amount-form" id="total-amount-form" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <label for="number">Amount</label>
+                        <input type="number" id="amount" name="amount" step="any" class="form-control" required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get Coins Combination</button>
+                </form> -->
+                @isset($change)
+                    {{ dd($change) }}
+                @endisset
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
